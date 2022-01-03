@@ -2,10 +2,6 @@
   <div class="login-panel">
     <h1 class="title">后台管理系统</h1>
     <el-tabs type="border-card" stretch v-model="currentTab">
-      <!-- <edit style="width: 1em; height: 1em; margin-right: 8px" />
-      <share style="width: 1em; height: 1em; margin-right: 8px" />
-      <delete style="width: 1em; height: 1em; margin-right: 8px" />
-      <search style="width: 1em; height: 1em; margin-right: 8px" /> -->
       <el-tab-pane name="account">
         <template #label>
           <span class="tab-item">
@@ -22,7 +18,7 @@
             >手机登录
           </span>
         </template>
-        <login-phone></login-phone>
+        <login-phone ref="phoneRef"></login-phone>
       </el-tab-pane>
     </el-tabs>
 
@@ -64,7 +60,8 @@ export default defineComponent({
       isKeepPassword,
       handleLoginClick,
       accountRef,
-      currentTab
+      currentTab,
+      phoneRef
     }
   }
 })

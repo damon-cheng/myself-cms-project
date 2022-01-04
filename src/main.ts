@@ -7,7 +7,7 @@ import { globalRegister } from "./global"
 import "normalize.css"
 import "./assets/css/index.less"
 
-import ldRquest from "./services"
+// import ldRquest from "./services"
 
 import App from "./App.vue"
 import router from "./router"

@@ -1,5 +1,8 @@
 import { Module } from "vuex"
 
+import { accountLoginRequest } from "@/services/login/login"
+import { IAccount } from "@/services/login/types"
+
 import { IRootState } from "../types"
 import { ILoginState } from "./types"
 
@@ -13,11 +16,19 @@ const loginModule: Module<ILoginState, IRootState> = {
   },
   getters: {},
   actions: {
-    accountLoginAction({ commit }, payload: any) {
-      console.log("执行accountLoginAction", commit, payload)
+    async accountLoginAction({ commit }, payload: IAccount) {
+      const loginResult = await accountLoginRequest(payload)
+      const { id, token } = loginResult.data
+      commit("changeToken", token)
+      // console.log("loginResult:", loginResult)
+      // console.log("执行accountLoginAction", commit, payload)
     }
   },
-  mutations: {}
+  mutations: {
+    changeToken(state, token: string) {
+      state.token = token
+    }
+  }
 }
 
 export default loginModule

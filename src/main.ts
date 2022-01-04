@@ -21,40 +21,40 @@ app.use(globalRegister)
 //app.use(ElementPlus)
 app.mount("#app")
 
-interface DataType {
-  data: any
-  returnCode: string
-  success: boolean
-}
+// interface DataType {
+//   data: any
+//   returnCode: string
+//   success: boolean
+// }
 
-ldRquest
-  .get<DataType>({
-    url: "/home/multidata",
-    //method: "GET",
-    showLoding: true,
-    interceptors: {
-      requestInterceptor(config) {
-        console.log("request的拦截器")
-        return config
-      },
-      responseInterceptor(res) {
-        console.log("response拦截器")
-        return res
-      }
-      // requestInterceptor: (config) => {
-      //   console.log("request的拦截器")
-      //   return config
-      // },
-      // responseInterceptor: (res) => {
-      //   console.log("response拦截器")
-      //   return res
-      // }
-    }
-  })
-  .then((res) => {
-    console.log(res.data)
-    console.log(res)
-  })
+// ldRquest
+//   .get<DataType>({
+//     url: "/home/multidata",
+//     //method: "GET",
+//     showLoding: true,
+//     interceptors: {
+//       requestInterceptor(config) {
+//         console.log("request的拦截器")
+//         return config
+//       },
+//       responseInterceptor(res) {
+//         console.log("response拦截器")
+//         return res
+//       }
+//       // requestInterceptor: (config) => {
+//       //   console.log("request的拦截器")
+//       //   return config
+//       // },
+//       // responseInterceptor: (res) => {
+//       //   console.log("response拦截器")
+//       //   return res
+//       // }
+//     }
+//   })
+//   .then((res) => {
+//     console.log(res.data)
+//     console.log(res)
+//   })
 
 // ldRquest.request({
 //   url: "/home/multidata",

@@ -69,6 +69,10 @@ export default defineComponent({
 
 //
 <style scoped lang="less">
+.login-panel {
+  width: 320px;
+  margin-bottom: 150px;
+}
 .tab-item {
   display: flex;
   align-items: center;

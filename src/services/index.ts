@@ -7,6 +7,7 @@ const ldRqusest = new LDRequest({
   timeout: TIME_OUT,
   interceptors: {
     requestInterceptor: (config) => {
+      console.log("token")
       const token = localCache.getCache("token")
       if (token && config.headers) {
         config.headers.Authorization = `Bearer ${token}`

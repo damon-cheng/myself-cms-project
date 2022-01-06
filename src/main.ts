@@ -2,7 +2,7 @@ import { createApp } from "vue"
 
 //import ElementPlus from "element-plus"
 //import "element-plus/dist/index.css"
-import { globalRegister } from "./global"
+import { globalRegister } from "@/global"
 //import "./services/axios_demo"
 import "normalize.css"
 import "./assets/css/index.less"

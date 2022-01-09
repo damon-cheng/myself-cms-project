@@ -2,9 +2,10 @@
   <div class="nav-menu">
     <div class="logo">
       <img class="img" src="~@/assets/img/logo.svg" alt="logo" />
-      <span class="title">damon-cms</span>
+      <span v-if="!collaspe" class="title">damon-cms</span>
     </div>
     <el-menu
+      :collapse="collaspe"
       class="el-menu-vertical"
       background-color="#0c2135"
       text-color="#b7bdc3"
@@ -12,7 +13,7 @@
     >
       <template v-for="item in userMenus" :key="item.id">
         <template v-if="item.type == 1">
-          <el-sub-menu :index="item.id">
+          <el-sub-menu :index="item.id + ''">
             <template #title>
               <el-icon v-if="item.icon"
                 ><component :is="getIcon(item.icon)"></component
@@ -20,7 +21,10 @@
               <span>{{ item.name }}</span>
             </template>
             <template v-for="subItem in item.children" :key="subItem.id">
-              <el-menu-item :index="subItem.id">
+              <el-menu-item
+                :index="subItem.id + ''"
+                @click="handleMenuItemClick(subItem)"
+              >
                 <e-icon v-if="subItem.icon">
                   <component :is="getIcon(subItem.icon)"></component>
                 </e-icon>
@@ -30,7 +34,7 @@
           </el-sub-menu>
         </template>
         <template v-else-if="item.type == 2">
-          <el-menu-item :index="item.id">
+          <el-menu-item :index="item.id + ''">
             <el-icon v-if="item.icon"
               ><component :is="getIcon(item.icon)"></component
             ></el-icon>
@@ -45,20 +49,32 @@
 <script lang="ts">
 import { defineComponent, computed } from "vue"
 import { useStore } from "@/store"
+import { useRouter } from "vue-router"
 
 export default defineComponent({
+  props: {
+    collaspe: {
+      type: Boolean,
+      default: false
+    }
+  },
   setup() {
     const store = useStore()
-    console.log("store", store)
-    console.log("state", store.state)
+    const router = useRouter()
     const userMenus = computed(() => store.state.login.userMenus)
+    const handleMenuItemClick = (item: any) => {
+      router.push({
+        path: item.url ?? "/not-found"
+      })
+    }
 
     const getIcon: (string: any) => string = (icon: string) => {
       return icon.split("-")[icon.split("-").length - 1]
     }
     return {
       userMenus,
-      getIcon
+      getIcon,
+      handleMenuItemClick
     }
   }
 })

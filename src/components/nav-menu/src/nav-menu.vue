@@ -5,6 +5,7 @@
       <span v-if="!collaspe" class="title">damon-cms</span>
     </div>
     <el-menu
+      :default-active="defaultValue"
       :collapse="collaspe"
       class="el-menu-vertical"
       background-color="#0c2135"
@@ -47,9 +48,10 @@
 </template>
 
 <script lang="ts">
-import { defineComponent, computed } from "vue"
+import { defineComponent, computed, ref } from "vue"
 import { useStore } from "@/store"
-import { useRouter } from "vue-router"
+import { useRouter, useRoute } from "vue-router"
+import { pathMapToMenu } from "@/utils/map-menus"
 
 export default defineComponent({
   props: {
@@ -71,10 +73,17 @@ export default defineComponent({
     const getIcon: (string: any) => string = (icon: string) => {
       return icon.split("-")[icon.split("-").length - 1]
     }
+
+    //拿到当前route的path
+    //循环去userMenus中去比对拿到id
+    const route = useRoute()
+    const menu = pathMapToMenu(userMenus.value, route.path)
+    const defaultValue = ref(menu.id + "")
     return {
       userMenus,
       getIcon,
-      handleMenuItemClick
+      handleMenuItemClick,
+      defaultValue
     }
   }
 })

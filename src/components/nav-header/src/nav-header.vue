@@ -4,8 +4,8 @@
       <component :is="ioncName"></component>
     </el-icon>
     <div class="content">
-      <div>面包屑</div>
-      <user-info></user-info>
+      <div><ld-bread-crumb :breadcrumbs="breadcrumbs" /></div>
+      <user-info />
     </div>
   </div>
 </template>
@@ -13,10 +13,15 @@
 <script lang="ts">
 import { defineComponent, ref, computed } from "vue"
 import userInfo from "./user-info.vue"
+import LdBreadCrumb, { IBreadCrumb } from "@/base-ui/breadcrumb"
+import { pathMapBreadcrumbs } from "@/utils/map-menus"
+import { useStore } from "@/store"
+import { useRoute } from "vue-router"
 
 export default defineComponent({
   components: {
-    userInfo
+    userInfo,
+    LdBreadCrumb
   },
   emits: ["foldChange"],
   setup(props, { emit }) {
@@ -28,10 +33,19 @@ export default defineComponent({
       isFold.value = !isFold.value
       emit("foldChange", isFold.value)
     }
+
+    const store = useStore()
+    const breadcrumbs = computed(() => {
+      const userMenus = store.state.login.userMenus
+      const currentPath = useRoute()
+      return pathMapBreadcrumbs(userMenus, currentPath.path)
+    })
+
     return {
       isFold,
       ioncName,
-      handleFoldClick
+      handleFoldClick,
+      breadcrumbs
     }
   }
 })

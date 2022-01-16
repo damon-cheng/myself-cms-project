@@ -1,5 +1,8 @@
 <template>
   <div class="ld-form">
+    <div class="header">
+      <slot name="header"></slot>
+    </div>
     <el-form :label-width="labelWidth"
       ><el-row>
         <template v-for="item in formItems" :key="item.label">
@@ -10,6 +13,7 @@
                   :placeholder="item.placeholder"
                   :show-password="item.type == 'password'"
                   v-bind="item.otherOptions"
+                  v-model="formData[`${item.field}`]"
                 ></el-input>
               </template>
               <template v-else-if="item.type == 'select'">
@@ -17,6 +21,7 @@
                   v-bind="item.otherOptions"
                   :placeholder="item.placeholder"
                   style="width: 100%"
+                  v-model="formData[`${item.field}`]"
                 >
                   <el-option
                     v-for="option in item.options"
@@ -36,15 +41,26 @@
           </el-col>
         </template> </el-row
     ></el-form>
+    <div class="footer">
+      <slot name="footer"></slot>
+    </div>
   </div>
 </template>
 
 <script lang="ts">
-import { defineComponent, PropType } from "vue"
+import { defineComponent, PropType, computed, ref, watch } from "vue"
 import { IFormItem } from "../types"
 
 export default defineComponent({
   props: {
+    // formData: {
+    //   type: Object,
+    //   required: true
+    // },
+    modelValue: {
+      type: Object,
+      required: true
+    },
     formItems: {
       type: Array as PropType<IFormItem[]>,
       default: () => []
@@ -70,8 +86,27 @@ export default defineComponent({
       })
     }
   },
-  setup() {
-    return {}
+  emits: ["update:modelValue"],
+  setup(props, { emit }) {
+    const formData = ref({ ...props.modelValue })
+    watch(
+      formData,
+      (newValue) => {
+        emit("update:modelValue", newValue)
+      },
+      {
+        deep: true
+      }
+    )
+    // const formData = computed({
+    //   get: () => props.modelValue,
+    //   set: () => {
+    //     console.log(11111)
+    //   }
+    // })
+    return {
+      formData
+    }
   }
 })
 </script>

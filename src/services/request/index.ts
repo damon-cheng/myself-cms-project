@@ -58,7 +58,7 @@ class LDRequest {
       }
     )
   }
-  request<T>(config: LDRquestConfig<T>): Promise<T> {
+  request<T = any>(config: LDRquestConfig<T>): Promise<T> {
     return new Promise((resolve, reject) => {
       if (config.interceptors?.requestInterceptor) {
         config = config.interceptors.requestInterceptor(config)
@@ -84,19 +84,19 @@ class LDRequest {
     })
   }
 
-  get<T>(config: LDRquestConfig<T>): Promise<T> {
+  get<T = any>(config: LDRquestConfig<T>): Promise<T> {
     return this.request<T>({ ...config, method: "GET" })
   }
 
-  post<T>(config: LDRquestConfig<T>): Promise<T> {
+  post<T = any>(config: LDRquestConfig<T>): Promise<T> {
     return this.request<T>({ ...config, method: "POST" })
   }
 
-  delete<T>(config: LDRquestConfig<T>): Promise<T> {
+  delete<T = any>(config: LDRquestConfig<T>): Promise<T> {
     return this.request<T>({ ...config, method: "DELETE" })
   }
 
-  patch<T>(config: LDRquestConfig<T>): Promise<T> {
+  patch<T = any>(config: LDRquestConfig<T>): Promise<T> {
     return this.request<T>({ ...config, method: "PATCH" })
   }
 }

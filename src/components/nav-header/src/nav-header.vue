@@ -40,6 +40,37 @@ export default defineComponent({
       const currentPath = useRoute()
       return pathMapBreadcrumbs(userMenus, currentPath.path)
     })
+    // const arr = [
+    //   {
+    //     id: 38,
+    //     name: "系统总览",
+    //     type: 1,
+    //     url: "/main/analysis",
+    //     icon: "el-icon-monitor",
+    //     sort: 1,
+    //     children: [
+    //       {
+    //         id: 39,
+    //         url: "/main/analysis/overview",
+    //         name: "核心技术",
+    //         sort: 106,
+    //         type: 1,
+    //         children: [
+    //           {
+    //             id: 38,
+    //             name: "子项3",
+    //             type: 2,
+    //             url: "/main/analysis/overview/damon",
+    //             sort: 1,
+    //             children: null
+    //           }
+    //         ],
+    //         parentId: 38
+    //       }
+    //     ]
+    //   }
+    // ]
+    // const breadcrumbs = pathMapBreadcrumbs(arr, "/main/analysis/overview/damon")
 
     return {
       isFold,

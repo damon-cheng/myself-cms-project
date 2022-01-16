@@ -1,22 +1,31 @@
 <template>
   <div class="user">
     <div class="search">
-      <LD-form v-bind="searchFormConfig" />
+      <page-search :searchFormConfig="searchFormConfig"></page-search>
     </div>
   </div>
 </template>
 
 <script lang="ts">
-import { defineComponent, ref, reactive } from "vue"
-import LDForm from "@/base-ui/form"
+import { defineComponent } from "vue"
+import PageSearch from "@/components/page-search"
 import { searchFormConfig } from "./config/search.config"
+import { useStore } from "@/store"
 
 export default defineComponent({
   name: "user",
   components: {
-    LDForm
+    PageSearch
   },
   setup() {
+    const store = useStore()
+    store.dispatch("system/getPageListAction", {
+      pageUrl: "/users/list",
+      queryInfo: {
+        offset: 0,
+        size: 10
+      }
+    })
     return {
       searchFormConfig
     }

@@ -44,13 +44,18 @@ export function pathMapToMenu(
 ): any {
   for (const menu of userMenus) {
     if (menu.type == 1) {
-      const findMenu = pathMapToMenu(menu.children ?? [], currentPath)
+      const findMenu = pathMapToMenu(
+        menu.children ?? [],
+        currentPath,
+        breadcrumb ?? []
+      )
       if (findMenu) {
-        breadcrumb?.push({ name: menu.name, path: menu.url })
-        breadcrumb?.push({ name: findMenu.name, path: findMenu.url })
+        breadcrumb?.unshift({ name: menu.name, path: menu.url })
+        //breadcrumb?.push({ name: findMenu.name, path: findMenu.url })
         return findMenu
       }
     } else if (menu.type == 2 && menu.url == currentPath) {
+      breadcrumb?.unshift({ name: menu.name, path: menu.url })
       return menu
     }
   }

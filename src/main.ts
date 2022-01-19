@@ -21,6 +21,7 @@ app.use(store)
 app.use(globalRegister)
 //globalRegister(app)
 //app.use(ElementPlus)
+
 app.mount("#app")
 
 // interface DataType {

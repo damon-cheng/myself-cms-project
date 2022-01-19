@@ -8,7 +8,8 @@ import {
   Fold,
   FolderAdd,
   Goods,
-  ChatLineRound
+  ChatLineRound,
+  Delete
 } from "@element-plus/icons-vue"
 
 const components = [
@@ -20,7 +21,8 @@ const components = [
   Fold,
   FolderAdd,
   Goods,
-  ChatLineRound
+  ChatLineRound,
+  Delete
 ]
 
 export default function (app: App): void {

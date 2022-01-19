@@ -2,9 +2,38 @@
   <div class="user">
     <div class="search">
       <page-search :searchFormConfig="searchFormConfig"></page-search>
-      <ld-table :listData="userList" :propList="propList">
+      <ld-table
+        :title="title"
+        :listData="userList"
+        :propList="propList"
+        :showIndexColumn="showIndexColumn"
+        :showSelectColumn="showSelectColumn"
+        @selectionChange="selectionChange"
+      >
+        <template #header>
+          <div>哈哈哈哈哈</div>
+        </template>
+        <template #headerHandler>
+          <el-button>新建用户</el-button>
+        </template>
         <template #status="scope">
-          <el-button>{{ scope.row.enable ? "启用" : "禁用" }}</el-button>
+          <el-button
+            size="mini"
+            :type="scope.row.enable ? 'success' : 'danger'"
+            >{{ scope.row.enable ? "启用" : "禁用" }}</el-button
+          >
+        </template>
+        <template #createAt="scope">
+          <strong>{{ $filters.formatTime(scope.row.createAt) }}</strong>
+        </template>
+        <template #updateAt="scope">
+          <span>{{ $filters.formatTime(scope.row.updateAt) }}</span>
+        </template>
+        <template #handler>
+          <div class="handle-btns">
+            <el-button :icon="Edit" size="mini" type="text">编辑</el-button>
+            <el-button :icon="Delete" size="mini" type="text">删除</el-button>
+          </div>
         </template>
       </ld-table>
     </div>
@@ -63,13 +92,31 @@ export default defineComponent({
         label: "更新时间",
         minWidth: "100",
         slotName: "updateAt"
+      },
+      {
+        label: "操作",
+        minWidth: "100",
+        slotName: "handler"
       }
     ]
+
+    let showIndexColumn = true
+    let showSelectColumn = true
+
+    const selectionChange = (value: any) => {
+      console.log("selectionChange111：", value)
+    }
+
+    let title = "用户列表"
     return {
       searchFormConfig,
       userList,
       userCount,
-      propList
+      propList,
+      showIndexColumn,
+      showSelectColumn,
+      selectionChange,
+      title
     }
   }
 })

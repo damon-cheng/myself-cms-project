@@ -7,3 +7,23 @@ export function getPageListData(url: string, queryInfo: any) {
     data: queryInfo
   })
 }
+
+export function deletePageData(url: string) {
+  return ldRqusest.delete<IDataType>({
+    url
+  })
+}
+
+export function createPageData(url: string, newData: any) {
+  return ldRqusest.post<IDataType>({
+    url,
+    data: newData
+  })
+}
+
+export function editPageData(url: string, editData: any) {
+  return ldRqusest.patch<IDataType>({
+    url,
+    data: editData
+  })
+}

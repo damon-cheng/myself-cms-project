@@ -8,6 +8,7 @@
       destroy-on-close
     >
       <LD-form v-bind="modalConfig" v-model="formData"></LD-form>
+      <slot></slot>
       <template #footer>
         <span class="dialog-footer">
           <el-button @click="dialogVisible = false">取消</el-button>
@@ -37,6 +38,10 @@ export default defineComponent({
       type: Object,
       default: () => ({})
     },
+    othersInfo: {
+      type: Object,
+      default: () => ({})
+    },
     pageName: {
       type: String,
       required: true
@@ -59,13 +64,13 @@ export default defineComponent({
       if (Object.keys(props.defaultInfo).length) {
         store.dispatch("system/editPageDataAction", {
           pageName: props.pageName,
-          editData: { ...formData.value },
+          editData: { ...formData.value, ...props.othersInfo },
           id: props.defaultInfo.id
         })
       } else {
         store.dispatch("system/createPageDataAction", {
           pageName: props.pageName,
-          newData: { ...formData.value }
+          newData: { ...formData.value, ...props.othersInfo }
         })
       }
     }

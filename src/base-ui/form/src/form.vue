@@ -39,6 +39,9 @@
                 <el-date-picker
                   style="width: 100%"
                   v-bind="item.otherOptions"
+                  v-model="formData[`${item.field}`]"
+                  size="medium"
+                  format="YYYY-MM-DD"
                 ></el-date-picker>
               </template>
             </el-form-item>

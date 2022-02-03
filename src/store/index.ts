@@ -1,6 +1,7 @@
 import { createStore, Store, useStore as useVuexStore } from "vuex"
 import login from "./login/login"
-import system from "./system/system"
+import system from "./main/system/system"
+import dashboard from "./main/analysis/dashboard"
 import { IRootState, IStoreInterFace } from "./types"
 import { getPageListData } from "@/services/main/system/system"
 
@@ -10,7 +11,8 @@ const store = createStore<IRootState>({
       name: "damon",
       age: 100,
       entireDepartment: [],
-      entireRole: []
+      entireRole: [],
+      entireMenu: []
     }
   },
   getters: {},
@@ -26,27 +28,35 @@ const store = createStore<IRootState>({
         size: 1000
       })
       const { list: roleList } = roleResult.data
+      const menuResult = await getPageListData("/menu/list", {})
+      const { list: entireMenu } = menuResult.data
+
       commit("changeEntireDepartment", departmentList)
-      commit("changeRntireRole", roleList)
+      commit("changeEntireRole", roleList)
+      commit("changeMenuResult", entireMenu)
     }
   },
   mutations: {
     changeEntireDepartment(state, list) {
       state.entireDepartment = list
     },
-    changeRntireRole(state, list) {
+    changeEntireRole(state, list) {
       state.entireRole = list
+    },
+    changeMenuResult(state, list) {
+      state.entireMenu = list
     }
   },
   modules: {
     login,
-    system
+    system,
+    dashboard
   }
 })
 
 export function setupStore() {
   store.dispatch("login/loadlocalLogin")
-  store.dispatch("getInitialDataAction")
+  //store.dispatch("getInitialDataAction")
 }
 
 export function useStore(): Store<IStoreInterFace> {

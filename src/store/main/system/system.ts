@@ -1,5 +1,5 @@
 import { Module } from "vuex"
-import { IRootState } from "../types"
+import { IRootState } from "../../types"
 import { ISystemState } from "./types"
 import {
   getPageListData,

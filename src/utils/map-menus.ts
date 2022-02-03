@@ -76,4 +76,16 @@ export function mapMenusToPermissions(userMenus: any[]) {
   return permissions
 }
 
+export function menuMapLeafKeys(menuList: any) {
+  const leafArr: number[] = []
+  const _fun = (menuList: any) => {
+    for (const item of menuList) {
+      if (item.children) _fun(item.children)
+      else leafArr.push(item.id)
+    }
+  }
+  _fun(menuList)
+  return leafArr
+}
+
 export { firstMenu }

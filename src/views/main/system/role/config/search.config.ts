@@ -10,16 +10,16 @@ export const searchFormConfig: IForm = {
   },
   formItems: [
     {
-      field: "intro",
+      field: "name",
       type: "input",
-      label: "权限名:",
-      placeholder: "请输入权限名称"
+      label: "用戶名稱:",
+      placeholder: "请输入用戶名稱"
     },
     {
-      field: "password",
-      type: "password",
-      label: "密码:",
-      placeholder: "请输入密码"
+      field: "intro",
+      type: "input",
+      label: "權限介紹:",
+      placeholder: "请输入权限介紹"
     },
     {
       field: "createTime",

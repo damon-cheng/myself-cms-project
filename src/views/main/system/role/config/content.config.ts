@@ -18,6 +18,11 @@ export const contentTableConfig = {
       label: "更新时间",
       minWidth: "100",
       slotName: "updateAt"
+    },
+    {
+      label: "操作",
+      minWidth: "100",
+      slotName: "handler"
     }
   ],
   showIndexColumn: true,
